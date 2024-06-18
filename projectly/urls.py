@@ -21,8 +21,8 @@ from projects import views
 
 
 urlpatterns = [
-    path('projects/', views.project_list),
-    path('projects/<int:pk>/', views.project_detail),
+    path('projects/', views.ProjectList.as_view()),
+    path('projects/<int:pk>/', views.ProjectDetail.as_view()),
     path('admin/', admin.site.urls),
 ]
 
