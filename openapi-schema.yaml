@@ -1,0 +1,501 @@
+openapi: 3.0.2
+info:
+  title: ''
+  version: ''
+paths:
+  /projects/:
+    get:
+      operationId: listProjects
+      description: List all projects, or create a new project.
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items: {}
+          description: ''
+      tags:
+      - projects
+    post:
+      operationId: createProjectList
+      description: List all projects, or create a new project.
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema: {}
+          application/x-www-form-urlencoded:
+            schema: {}
+          multipart/form-data:
+            schema: {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema: {}
+          description: ''
+      tags:
+      - projects
+  /projects{format}:
+    get:
+      operationId: retrieveProjectList
+      description: List all projects, or create a new project.
+      parameters:
+      - name: format
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: ''
+      tags:
+      - projects{format}
+    post:
+      operationId: createProjectList
+      description: List all projects, or create a new project.
+      parameters:
+      - name: format
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema: {}
+          application/x-www-form-urlencoded:
+            schema: {}
+          multipart/form-data:
+            schema: {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema: {}
+          description: ''
+      tags:
+      - projects{format}
+  /projects/{id}/:
+    get:
+      operationId: retrieveProjectDetail
+      description: Retrieve, update or delete a project.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: ''
+      tags:
+      - projects
+    put:
+      operationId: updateProjectDetail
+      description: Retrieve, update or delete a project.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema: {}
+          application/x-www-form-urlencoded:
+            schema: {}
+          multipart/form-data:
+            schema: {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: ''
+      tags:
+      - projects
+    delete:
+      operationId: destroyProjectDetail
+      description: Retrieve, update or delete a project.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+      tags:
+      - projects
+  /projects/{id}{format}:
+    get:
+      operationId: retrieveProjectDetail
+      description: Retrieve, update or delete a project.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      - name: format
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: ''
+      tags:
+      - projects
+    put:
+      operationId: updateProjectDetail
+      description: Retrieve, update or delete a project.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      - name: format
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema: {}
+          application/x-www-form-urlencoded:
+            schema: {}
+          multipart/form-data:
+            schema: {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: ''
+      tags:
+      - projects
+    delete:
+      operationId: destroyProjectDetail
+      description: Retrieve, update or delete a project.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      - name: format
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+      tags:
+      - projects
+  /projects/{project_id}/notes/:
+    get:
+      operationId: listNotes
+      description: List all Notes, or create a new Note, for a given Project.
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items: {}
+          description: ''
+      tags:
+      - projects
+    post:
+      operationId: createNoteList
+      description: List all Notes, or create a new Note, for a given Project.
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema: {}
+          application/x-www-form-urlencoded:
+            schema: {}
+          multipart/form-data:
+            schema: {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema: {}
+          description: ''
+      tags:
+      - projects
+  /projects/{project_id}/notes{format}:
+    get:
+      operationId: retrieveNoteList
+      description: List all Notes, or create a new Note, for a given Project.
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      - name: format
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: ''
+      tags:
+      - projects
+    post:
+      operationId: createNoteList
+      description: List all Notes, or create a new Note, for a given Project.
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      - name: format
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema: {}
+          application/x-www-form-urlencoded:
+            schema: {}
+          multipart/form-data:
+            schema: {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema: {}
+          description: ''
+      tags:
+      - projects
+  /projects/{project_id}/notes/{note_id}/:
+    get:
+      operationId: retrieveNoteDetail
+      description: Retrieve, update or delete a Note.
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      - name: note_id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: ''
+      tags:
+      - projects
+    put:
+      operationId: updateNoteDetail
+      description: Retrieve, update or delete a Note.
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      - name: note_id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema: {}
+          application/x-www-form-urlencoded:
+            schema: {}
+          multipart/form-data:
+            schema: {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: ''
+      tags:
+      - projects
+    delete:
+      operationId: destroyNoteDetail
+      description: Retrieve, update or delete a Note.
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      - name: note_id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+      tags:
+      - projects
+  /projects/{project_id}/notes/{note_id}{format}:
+    get:
+      operationId: retrieveNoteDetail
+      description: Retrieve, update or delete a Note.
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      - name: note_id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      - name: format
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: ''
+      tags:
+      - projects
+    put:
+      operationId: updateNoteDetail
+      description: Retrieve, update or delete a Note.
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      - name: note_id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      - name: format
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema: {}
+          application/x-www-form-urlencoded:
+            schema: {}
+          multipart/form-data:
+            schema: {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: ''
+      tags:
+      - projects
+    delete:
+      operationId: destroyNoteDetail
+      description: Retrieve, update or delete a Note.
+      parameters:
+      - name: project_id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      - name: note_id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      - name: format
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+      tags:
+      - projects
