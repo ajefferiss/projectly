@@ -11,12 +11,14 @@ Create the super user: `python manage.py createsuperuser`
 To run the Django API you can simply run: `python manage.py runserver`
 ## Testing Endpoints
 For the current endpoints, see [openapi-schema.yaml](./openapi-schema.yaml).
-### Create a project
-<details>
-    <summary>Expand</summary>
 
-#### Via curl
-```curl -X POST -H "Content-Type: application/json" -d "{\"name_text\": \"POST test\", \"pub_date\": \"2024-06-19\"}" http://localhost:8000/projects```
+
+### Projects
+***
+#### Create a project
+```
+curl -X POST -H "Content-Type: application/json" -d "{\"name_text\": \"POST test\", \"pub_date\": \"2024-06-19\"}" http://localhost:8000/projects
+```
 
 Which returns a JSON blob such as:
 
@@ -27,14 +29,9 @@ Which returns a JSON blob such as:
     "pub_date":"2024-06-19"
 }
 ```
-</details>
 
 
-### Get all projects
-<details>
-    <summary>Expand</summary>
-
-#### Via curl
+#### Get all projects
 ```curl -X GET http://localhost:8000/projects```
 
 Which returns a JSON blob such as:
@@ -48,13 +45,9 @@ Which returns a JSON blob such as:
     }
 ]
 ```
-</details>
 
-### Get specific project
-<details>
-    <summary>Expand</summary>
 
-#### Via curl
+#### Get specific project
 ```curl -X GET http://localhost:8000/projects/2```
 
 Which returns a JSON blob such as:
@@ -66,22 +59,14 @@ Which returns a JSON blob such as:
     "pub_date": "2024-06-19"
 }
 ```
-</details>
 
-### Delete a specific project
-<details>
-    <summary>Expand</summary>
-
-#### Via curl
+#### Delete a specific project
 ```curl -X DELETE http://localhost:8000/projects/2```
 
-</details>
 
-### Get all notes for a project
-<details>
-    <summary>Expand</summary>
-
-#### Via curl
+### Notes
+***
+#### Get all notes for a project
 ```curl -X GET http://localhost:8000/projects/2/notes```
 
 Which returns a JSON blob such as:
@@ -95,14 +80,11 @@ Which returns a JSON blob such as:
     }
 ]
 ```
-</details>
 
-### Create a note for a specific project
-<details>
-    <summary>Expand</summary>
-
-#### Via curl
-```curl -X POST -H "Content-Type: application/json" -d "{\"project\": \"2\", \"note_text\": \"Some note for a project\"}" http://localhost:8000/projects/2/notes```
+#### Create a note for a specific project
+```
+curl -X POST -H "Content-Type: application/json" -d "{\"project\": \"2\", \"note_text\": \"Some note for a project\"}" http://localhost:8000/projects/2/notes
+```
 
 
 Which returns a JSON blob such as:
@@ -114,13 +96,8 @@ Which returns a JSON blob such as:
     "note_text": "Some note for a project"
 }
 ```
-</details>
 
-### Get a specific project note
-<details>
-    <summary>Expand</summary>
-
-#### Via curl
+#### Get a specific project note
 ```curl -X GET http://localhost:8000/projects/2/notes/1```
 
 Which returns a JSON blob such as:
@@ -132,14 +109,11 @@ Which returns a JSON blob such as:
     "note_text": "Some note for a project"
 }
 ```
-</details>
 
-### Update a specific project note
-<details>
-    <summary>Expand</summary>
-
-#### Via curl
-```curl -X PUT -H "Content-Type: application/json" -d "{\"id\": \"1\", \"project\": \"2\", \"note_text\": \"Some notes for a project need updating\"}" http://localhost:8000/projects/2/notes/1```
+#### Update a specific project note
+```
+curl -X PUT -H "Content-Type: application/json" -d "{\"id\": \"1\", \"project\": \"2\", \"note_text\": \"Some notes for a project need updating\"}" http://localhost:8000/projects/2/notes/1
+```
 
 Which returns a JSON blob such as:
 
@@ -150,21 +124,16 @@ Which returns a JSON blob such as:
     "note_text": "Some notes for a project need updating"
 }
 ```
-</details>
 
-### Delete a specific project note
-<details>
-    <summary>Expand</summary>
+#### Delete a specific project note
 
-#### Via curl
 ```curl -X DELETE http://localhost:8000/projects/2/notes/1```
-</details>
 
-### Get all scripts for a project
-<details>
-    <summary>Expand</summary>
 
-#### Via curl
+### Scripts
+***
+#### Get all scripts for a project
+
 ```curl -X GET http://localhost:8000/projects/2/scripts```
 
 Which returns a JSON blob such as:
@@ -178,14 +147,12 @@ Which returns a JSON blob such as:
     }
 ]
 ```
-</details>
 
-### Create a script for a specific project
-<details>
-    <summary>Expand</summary>
+#### Create a script for a specific project
 
-#### Via curl
-```curl -X POST -H "Content-Type: application/json" -d "{\"project\": \"2\", \"script_text\": \"A script for the project\"}" http://localhost:8000/projects/2/scripts```
+```
+curl -X POST -H "Content-Type: application/json" -d "{\"project\": \"2\", \"script_text\": \"A script for the project\"}" http://localhost:8000/projects/2/scripts
+```
 
 
 Which returns a JSON blob such as:
@@ -197,13 +164,8 @@ Which returns a JSON blob such as:
     "script_text": "Some note for a project"
 }
 ```
-</details>
 
-### Get a specific project script
-<details>
-    <summary>Expand</summary>
-
-#### Via curl
+#### Get a specific project script
 ```curl -X GET http://localhost:8000/projects/2/scripts/1```
 
 Which returns a JSON blob such as:
@@ -215,14 +177,12 @@ Which returns a JSON blob such as:
     "script_text": "Some note for a project"
 }
 ```
-</details>
 
-### Update a specific project script
-<details>
-    <summary>Expand</summary>
+#### Update a specific project script
 
-#### Via curl
-```curl -X PUT -H "Content-Type: application/json" -d "{\"id\": \"1\", \"project\": \"2\", \"script_text\": \"Some scripts for a project need updating\"}" http://localhost:8000/projects/2/scripts/1```
+```
+curl -X PUT -H "Content-Type: application/json" -d "{\"id\": \"1\", \"project\": \"2\", \"script_text\": \"Some scripts for a project need updating\"}" http://localhost:8000/projects/2/scripts/1
+```
 
 Which returns a JSON blob such as:
 
@@ -233,12 +193,6 @@ Which returns a JSON blob such as:
     "note_text": "Some notes for a project need updating"
 }
 ```
-</details>
 
-### Delete a specific project note
-<details>
-    <summary>Expand</summary>
-
-#### Via curl
+#### Delete a specific project note
 ```curl -X DELETE http://localhost:8000/projects/2/notes/1```
-</details>
