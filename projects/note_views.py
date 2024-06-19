@@ -65,7 +65,7 @@ class NoteDetail(APIView):
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def delete(self, project_id, note_id, format=None):
+    def delete(self, request, project_id, note_id, format=None):
         self.get_project(project_id)
         note: Project = self.get_note(note_id)
         note.delete()
