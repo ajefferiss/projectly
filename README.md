@@ -2,37 +2,49 @@
 Simple API to create and manage "projects". A project includes notes and scripts, as well as a simple calendar to track when things should get done.
 
 ## Quick Install
-Install the requirements listed in `requirements.txt`:
-`python -m pip install -r requirements.txt`
+Install the requirements listed in `requirements.txt`: `python -m pip install -r requirements.txt`
+
+Migrate the database: `python manage.py migrate`
+
+Create the super user: `python manage.py createsuperuser`
 ## Run locally
 To run the Django API you can simply run: `python manage.py runserver`
 ## Testing Endpoints
 For the current endpoints, see [openapi-schema.yaml](./openapi-schema.yaml).
+### Create a project
+<details>
+    <summary>Expand</summary>
+
+#### Via curl
+```curl -X POST -H "Content-Type: application/json" -d "{\"name_text\": \"POST test\", \"pub_date\": \"2024-06-19\"}" http://localhost:8000/projects```
+
+Which returns a JSON blob such as:
+
+```json
+{
+    "id":2,
+    "name_text":"POST test",
+    "pub_date":"2024-06-19"
+}
+```
+</details>
+
+
 ### Get all projects
 <details>
     <summary>Expand</summary>
 
 #### Via curl
-```curl -H GET http://localhost:8000/projects/```
+```curl -X GET http://localhost:8000/projects```
 
 Which returns a JSON blob such as:
 
 ```json
 [
     {
-        "id":2,
-        "name_text":"Another project", 
-        "pub_date":"2024-06-18T15:52:08Z"
-    },
-    {
-        "id":1,
-        "name_text":"New Project",
-        "pub_date":"2024-06-18T15:36:08Z"
-    },
-    {
-        "id":3,
-        "name_text":"Old Project",
-        "pub_date":"2024-04-01T15:52:33Z"
+        "id": 2,
+        "name_text": "POST test",
+        "pub_date": "2024-06-19"
     }
 ]
 ```
@@ -43,17 +55,26 @@ Which returns a JSON blob such as:
     <summary>Expand</summary>
 
 #### Via curl
-```curl -H GET http://localhost:8000/projects/1/```
+```curl -X GET http://localhost:8000/projects/2```
 
 Which returns a JSON blob such as:
 
 ```json
 {
-    "id":1,
-    "name_text":"New Project",
-    "pub_date":"2024-06-18T15:36:08Z"
+    "id": 2,
+    "name_text": "POST test",
+    "pub_date": "2024-06-19"
 }
 ```
+</details>
+
+### Delete a specific project
+<details>
+    <summary>Expand</summary>
+
+#### Via curl
+```curl -X DELETE http://localhost:8000/projects/2/```
+
 </details>
 
 ### Get all notes for a project
@@ -61,23 +82,37 @@ Which returns a JSON blob such as:
     <summary>Expand</summary>
 
 #### Via curl
-```curl -H GET http://localhost:8000/projects/1/notes/```
+```curl -X GET http://localhost:8000/projects/2/notes```
 
 Which returns a JSON blob such as:
 
 ```json
 [
     {
-        "id":1,
-        "project":1,
-        "note_text": "One"
-    },
-    {
-        "id":2,
-        "project":1,
-        "note_text":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus facilisis tortor in ultrices efficitur. In felis justo, mollis at vehicula sit amet, auctor et lacus. Mauris rutrum, enim congue hendrerit tristique, sem turpis pretium mauris, iaculis vehicula dolor ligula ac turpis. Sed nulla ipsum, facilisis eu quam vel, scelerisque iaculis leo. Aenean rutrum fringilla lectus a volutpat. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos."
+        "id": 1,
+        "project": 2,
+        "note_text": "Some note for a project"
     }
 ]
+```
+</details>
+
+### Create a note for a specific project
+<details>
+    <summary>Expand</summary>
+
+#### Via curl
+```curl -X POST -H "Content-Type: application/json" -d "{\"project\": \"2\", \"note_text\": \"Some note for a project\"}" http://localhost:8000/projects/2/notes/```
+
+
+Which returns a JSON blob such as:
+
+```json
+{
+    "id": 1,
+    "project": 2,
+    "note_text": "Some note for a project"
+}
 ```
 </details>
 
@@ -86,15 +121,51 @@ Which returns a JSON blob such as:
     <summary>Expand</summary>
 
 #### Via curl
-```curl -H GET http://localhost:8000/projects/1/notes/1/```
+```curl -X GET http://localhost:8000/projects/2/notes/1/```
 
 Which returns a JSON blob such as:
 
 ```json
 {
-    "id":1,
-    "project":1,
-    "note_text": "One"
+    "id": 1,
+    "project": 2,
+    "note_text": "Some note for a project"
+}
+```
+</details>
+
+### Update a specific project note
+<details>
+    <summary>Expand</summary>
+
+#### Via curl
+```curl -X PUT -H "Content-Type: application/json" -d "{\"id\": \"1\", \"project\": \"2\", \"note_text\": \"Some notes for a project need updating\"}" http://localhost:8000/projects/2/notes/1/```
+
+Which returns a JSON blob such as:
+
+```json
+{
+    "id": 1,
+    "project": 2,
+    "note_text": "Some notes for a project need updating"
+}
+```
+</details>
+
+### Delete a specific project note
+<details>
+    <summary>Expand</summary>
+
+#### Via curl
+```curl -X DELETE http://localhost:8000/projects/2/notes/1/```
+
+Which returns a JSON blob such as:
+
+```json
+{
+    "id": 1,
+    "project": 2,
+    "note_text": "Some notes for a project need updating"
 }
 ```
 </details>
