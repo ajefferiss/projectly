@@ -6,7 +6,7 @@ TRUNCATE_TEXT_LEN = 50
 
 class Project(models.Model):
     name_text = models.TextField()
-    pub_date = models.DateTimeField("date published")
+    pub_date = models.DateField("date published")
 
     def __str__(self) -> str:
         return f"{self.name_text} created {self.pub_date}"
