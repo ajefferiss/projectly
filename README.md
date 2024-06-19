@@ -73,7 +73,7 @@ Which returns a JSON blob such as:
     <summary>Expand</summary>
 
 #### Via curl
-```curl -X DELETE http://localhost:8000/projects/2/```
+```curl -X DELETE http://localhost:8000/projects/2```
 
 </details>
 
@@ -102,7 +102,7 @@ Which returns a JSON blob such as:
     <summary>Expand</summary>
 
 #### Via curl
-```curl -X POST -H "Content-Type: application/json" -d "{\"project\": \"2\", \"note_text\": \"Some note for a project\"}" http://localhost:8000/projects/2/notes/```
+```curl -X POST -H "Content-Type: application/json" -d "{\"project\": \"2\", \"note_text\": \"Some note for a project\"}" http://localhost:8000/projects/2/notes```
 
 
 Which returns a JSON blob such as:
@@ -121,7 +121,7 @@ Which returns a JSON blob such as:
     <summary>Expand</summary>
 
 #### Via curl
-```curl -X GET http://localhost:8000/projects/2/notes/1/```
+```curl -X GET http://localhost:8000/projects/2/notes/1```
 
 Which returns a JSON blob such as:
 
@@ -139,7 +139,7 @@ Which returns a JSON blob such as:
     <summary>Expand</summary>
 
 #### Via curl
-```curl -X PUT -H "Content-Type: application/json" -d "{\"id\": \"1\", \"project\": \"2\", \"note_text\": \"Some notes for a project need updating\"}" http://localhost:8000/projects/2/notes/1/```
+```curl -X PUT -H "Content-Type: application/json" -d "{\"id\": \"1\", \"project\": \"2\", \"note_text\": \"Some notes for a project need updating\"}" http://localhost:8000/projects/2/notes/1```
 
 Which returns a JSON blob such as:
 
@@ -157,7 +157,72 @@ Which returns a JSON blob such as:
     <summary>Expand</summary>
 
 #### Via curl
-```curl -X DELETE http://localhost:8000/projects/2/notes/1/```
+```curl -X DELETE http://localhost:8000/projects/2/notes/1```
+</details>
+
+### Get all scripts for a project
+<details>
+    <summary>Expand</summary>
+
+#### Via curl
+```curl -X GET http://localhost:8000/projects/2/scripts```
+
+Which returns a JSON blob such as:
+
+```json
+[
+    {
+        "id": 1,
+        "project": 2,
+        "script_text": "Some note for a project"
+    }
+]
+```
+</details>
+
+### Create a script for a specific project
+<details>
+    <summary>Expand</summary>
+
+#### Via curl
+```curl -X POST -H "Content-Type: application/json" -d "{\"project\": \"2\", \"script_text\": \"A script for the project\"}" http://localhost:8000/projects/2/scripts```
+
+
+Which returns a JSON blob such as:
+
+```json
+{
+    "id": 1,
+    "project": 2,
+    "script_text": "Some note for a project"
+}
+```
+</details>
+
+### Get a specific project script
+<details>
+    <summary>Expand</summary>
+
+#### Via curl
+```curl -X GET http://localhost:8000/projects/2/scripts/1```
+
+Which returns a JSON blob such as:
+
+```json
+{
+    "id": 1,
+    "project": 2,
+    "script_text": "Some note for a project"
+}
+```
+</details>
+
+### Update a specific project script
+<details>
+    <summary>Expand</summary>
+
+#### Via curl
+```curl -X PUT -H "Content-Type: application/json" -d "{\"id\": \"1\", \"project\": \"2\", \"script_text\": \"Some scripts for a project need updating\"}" http://localhost:8000/projects/2/scripts/1```
 
 Which returns a JSON blob such as:
 
@@ -168,4 +233,12 @@ Which returns a JSON blob such as:
     "note_text": "Some notes for a project need updating"
 }
 ```
+</details>
+
+### Delete a specific project note
+<details>
+    <summary>Expand</summary>
+
+#### Via curl
+```curl -X DELETE http://localhost:8000/projects/2/notes/1```
 </details>
