@@ -7,7 +7,7 @@ from .models import Calendar, Project
 from .serializers import CalendarSerializer
 
 
-class CalendarList(APIView):
+class CalendarProjectList(APIView):
     """
     List all Calendar Entries, or create a new Entry, for a given Project.
     """
@@ -33,7 +33,7 @@ class CalendarList(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class CalendarDetail(APIView):
+class CalendarProjectDetail(APIView):
     """
     Retrieve, update or delete a Calendar entry.
     """

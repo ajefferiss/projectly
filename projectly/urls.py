@@ -37,10 +37,10 @@ urlpatterns = [
     ),
     path(
         'projects/<int:project_id>/calendar',
-        calendar_views.CalendarList.as_view()
+        calendar_views.CalendarProjectList.as_view()
     ),
     path('projects/<int:project_id>/calendar/<int:entry_id>',
-         calendar_views.CalendarDetail.as_view()
+         calendar_views.CalendarProjectDetail.as_view()
          ),
     path('admin/', admin.site.urls),
 ]
