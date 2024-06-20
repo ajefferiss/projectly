@@ -67,6 +67,6 @@ class NoteDetail(APIView):
 
     def delete(self, request, project_id, note_id, format=None):
         self.get_project(project_id)
-        note: Project = self.get_note(note_id)
+        note = self.get_note(note_id)
         note.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)

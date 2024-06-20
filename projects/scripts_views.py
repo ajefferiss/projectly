@@ -67,6 +67,6 @@ class ScriptDetail(APIView):
 
     def delete(self, request, project_id, script_id, format=None):
         self.get_project(project_id)
-        script: Project = self.get_script(script_id)
+        script = self.get_script(script_id)
         script.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
