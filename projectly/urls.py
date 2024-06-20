@@ -17,7 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from rest_framework.urlpatterns import format_suffix_patterns
-from projects import projects_views, note_views, scripts_views
+from projects import projects_views, note_views, scripts_views, calendar_views
 
 urlpatterns = [
     path('projects', projects_views.ProjectList.as_view()),
@@ -35,6 +35,13 @@ urlpatterns = [
         'projects/<int:project_id>/scripts/<int:script_id>',
         scripts_views.ScriptDetail.as_view()
     ),
+    path(
+        'projects/<int:project_id>/calendar',
+        calendar_views.CalendarList.as_view()
+    ),
+    path('projects/<int:project_id>/calendar/<int:entry_id>',
+         calendar_views.CalendarDetail.as_view()
+         ),
     path('admin/', admin.site.urls),
 ]
 

@@ -34,3 +34,13 @@ class Script(models.Model):
             script = self.script_text[:TRUNCATE_TEXT_LEN] + "..."
 
         return f"{script} created for {self.project.name_text}"
+
+
+class Calendar(models.Model):
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    start_date = models.DateField()
+    end_date = models.DateField()
+    completed = models.BooleanField(default=False)
+
+    def __str__(self) -> str:
+        return f"Project({self.project.name_text}) runs from {self.start_date} to {self.end_date}, completed = {self.completed}"

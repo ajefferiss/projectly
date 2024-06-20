@@ -196,3 +196,78 @@ Which returns a JSON blob such as:
 
 #### Delete a specific project note
 ```curl -X DELETE http://localhost:8000/projects/2/notes/1```
+
+### Calendar
+***
+#### Get all calendar entries for a project
+
+```curl -X GET http://localhost:8000/projects/2/calendar```
+
+Which returns a JSON blob such as:
+
+```json
+[
+    {
+        "id": 2,
+        "project": 2,
+        "start_date": "2024-06-19",
+        "end_date": "2024-06-19",
+        "completed": false
+    }
+]
+```
+
+#### Create a calendar entry for a specific project
+
+```
+curl -X POST -H "Content-Type: application/json" -d "{\"project\": \"2\", \"start_date\": \"2024-06-19\", \"end_date\": \"2024-06-19\"}" http://localhost:8000/projects/2/calendar
+```
+
+
+Which returns a JSON blob such as:
+
+```json
+{
+    "id": 2,
+    "project": 2,
+    "start_date": "2024-06-19",
+    "end_date": "2024-06-19",
+    "completed": false
+}
+```
+
+#### Get a specific calendar entry
+```curl -X GET http://localhost:8000/projects/2/calendar/2```
+
+Which returns a JSON blob such as:
+
+```json
+{
+    "id": 2,
+    "project": 2,
+    "start_date": "2024-06-19",
+    "end_date": "2024-06-19",
+    "completed": false
+}
+```
+
+#### Update a specific project script
+
+```
+curl -X PUT -H "Content-Type: application/json" -d "{\"id\": 2, \"project\": 2, \"start_date\": \"2024-06-19\", \"end_date\": \"2024-06-19\", \"completed\": true}" http://localhost:8000/projects/2/calendar/2
+```
+
+Which returns a JSON blob such as:
+
+```json
+{
+    "id": 2,
+    "project": 2,
+    "start_date": "2024-06-19",
+    "end_date": "2024-06-19",
+    "completed": true
+}
+```
+
+#### Delete a specific project note
+```curl -X DELETE http://localhost:8000/projects/2/calendar/2```
