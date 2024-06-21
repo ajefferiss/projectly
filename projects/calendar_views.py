@@ -1,10 +1,13 @@
 from django.http import Http404
+from django.db.models import Q
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .models import Calendar, Project
 from .serializers import CalendarSerializer
+
+from datetime import datetime
 
 
 class CalendarProjectList(APIView):
@@ -70,3 +73,39 @@ class CalendarProjectDetail(APIView):
         entry = self.get_entry(entry_id)
         entry.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class CalendarSearchDetails(APIView):
+    """
+    Search for calendar entries between two given dates
+    """
+
+    def error(self, msg: str) -> Response:
+        return Response(
+            data={"error": msg},
+            status=status.HTTP_400_BAD_REQUEST
+        )
+
+    def post(self, request, format=None):
+        start = request.data.get('start_date', None)
+        end = request.data.get('end_date', None)
+        exclude_completed = request.data.get('exclude_completed', False)
+
+        if not start or not end:
+            return self.error("Both start_date and end_date are required for search")
+
+        start_date = datetime.strptime(start, '%Y-%m-%d').date()
+        end_date = datetime.strptime(end, '%Y-%m-%d').date()
+
+        if end_date < start_date:
+            return self.error("end_date must be after start_date")
+
+        query = (Q(start_date__gte=start_date))
+        query.add(Q(end_date__lte=end_date), Q.AND)
+
+        if exclude_completed:
+            query.add(Q(completed=False), Q.AND)
+
+        entries = Calendar.objects.filter(query)
+        serializer = CalendarSerializer(entries, many=True)
+        return Response(serializer.data)

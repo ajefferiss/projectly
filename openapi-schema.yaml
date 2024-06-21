@@ -561,6 +561,35 @@ paths:
           description: No project content
         '404':
           description: Project not found
+  /calendar/search:
+    post:
+      tags:
+        - calendar
+        - search
+      operationId: calendarSearch
+      description: Search for calendar entries
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CalendarSearch'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CalendarSearch'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CalendarSearch'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Calendar'
+          description: Successful operation
+        '400':
+          description: Invalid search parameters supplied
 
 components:
   schemas:
@@ -619,3 +648,23 @@ components:
           type: boolean
           description: Indication of whether the calendar entry is completed
           example: true
+    CalendarSearch:
+      type: object
+      required:
+        - start_date
+        - end_date
+      properties:
+        start_date:
+          type: string
+          description: The start date for the search, in the format YYYY-MM-DD
+          example: "2024-06-01"
+        end_date:
+          type: string
+          description: The end date for the search, in the format YYYY-MM-DD. Must be equal, or beyond, the start_date
+          example: "2024-06-30"
+        exclude_completed:
+          type: boolean
+          description: Flag to specifiy whether to ignore completed entries 
+          default: false
+          example: True
+
