@@ -43,6 +43,7 @@ urlpatterns = [
          calendar_views.CalendarProjectDetail.as_view()
          ),
     path('calendar/search', calendar_views.CalendarSearchDetails.as_view()),
+    path('calendar/upcoming', calendar_views.CalendarUpcomingDetails.as_view()),
     path('admin/', admin.site.urls),
 ]
 

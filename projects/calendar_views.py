@@ -1,3 +1,4 @@
+from typing import Any
 from django.http import Http404
 from django.db.models import Q
 from rest_framework import status
@@ -8,6 +9,7 @@ from .models import Calendar, Project
 from .serializers import CalendarSerializer
 
 from datetime import datetime
+from datetime import timedelta
 
 
 class CalendarProjectList(APIView):
@@ -75,9 +77,9 @@ class CalendarProjectDetail(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-class CalendarSearchDetails(APIView):
+class SearchBase(APIView):
     """
-    Search for calendar entries between two given dates
+    Defines common base behaviour for the search views
     """
 
     def error(self, msg: str) -> Response:
@@ -85,6 +87,15 @@ class CalendarSearchDetails(APIView):
             data={"error": msg},
             status=status.HTTP_400_BAD_REQUEST
         )
+
+
+class CalendarSearchDetails(SearchBase):
+    """
+    Search for calendar entries between two given dates
+    """
+
+    def __init__(self, **kwargs: Any) -> None:
+        super().__init__(**kwargs)
 
     def post(self, request, format=None):
         start = request.data.get('start_date', None)
@@ -101,6 +112,38 @@ class CalendarSearchDetails(APIView):
             return self.error("end_date must be after start_date")
 
         query = (Q(start_date__gte=start_date))
+        query.add(Q(end_date__lte=end_date), Q.AND)
+
+        if exclude_completed:
+            query.add(Q(completed=False), Q.AND)
+
+        entries = Calendar.objects.filter(query)
+        serializer = CalendarSerializer(entries, many=True)
+        return Response(serializer.data)
+
+
+class CalendarUpcomingDetails(SearchBase):
+    """
+    Upcoming entries for the calendar
+    """
+
+    def __init__(self, **kwargs: Any) -> None:
+        super().__init__(**kwargs)
+
+    def post(self, request, format=None):
+        try:
+            date_offset = int(abs(request.data.get('days', 7)))
+        except TypeError:
+            return self.error("Days value invalid")
+        exclude_completed = request.data.get('exclude_completed', False)
+
+        today = datetime.today().strftime('%Y-%m-%d')
+        end_date = datetime.strftime(
+            datetime.today() + timedelta(days=date_offset),
+            '%Y-%m-%d'
+        )
+
+        query = (Q(end_date__gte=today))
         query.add(Q(end_date__lte=end_date), Q.AND)
 
         if exclude_completed:
