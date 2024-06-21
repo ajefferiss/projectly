@@ -469,7 +469,7 @@ paths:
           description: Successful operation
         '400':
           description: Invalid Calendar details supplied
-  /projects/{projectId}/calendar/{scriptId}:
+  /projects/{projectId}/calendar/{calendarId}:
     get:
       tags:
         - calendar
