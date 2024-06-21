@@ -271,3 +271,64 @@ Which returns a JSON blob such as:
 
 #### Delete a specific project note
 ```curl -X DELETE http://localhost:8000/projects/2/calendar/2```
+
+### Search
+***
+#### Search for calendar entries between dates
+```
+curl -X POST -H "Content-Type: application/json" -d "{\"start_date\": \"2024-06-01\", \"end_date\": \"2024-06-30\"}" http://localhost:8000/calendar/search
+```
+
+Which returns a JSON blob such as:
+
+```json
+[
+    {
+        "id": 3,
+        "project": 2,
+        "start_date": "2024-06-20",
+        "end_date": "2024-06-30",
+        "completed": false
+    },
+    {
+        "id": 4,
+        "project": 4,
+        "start_date": "2024-06-03",
+        "end_date": "2024-06-30",
+        "completed": false
+    },
+    {
+        "id": 5,
+        "project": 2,
+        "start_date": "2024-06-19",
+        "end_date": "2024-06-19",
+        "completed": true
+    }
+]
+```
+
+It is possible to exclude completed events by include the `exclude_completed` field within the JSON block. For example:
+```
+curl -X POST -H "Content-Type: application/json" -d "{\"start_date\": \"2024-06-01\", \"end_date\": \"2024-06-30\", \"exclude_completed\": true}" http://localhost:8000/calendar/search
+```
+
+Which returns a JSON blob such as:
+
+```json
+[
+    {
+        "id": 3,
+        "project": 2,
+        "start_date": "2024-06-20",
+        "end_date": "2024-06-30",
+        "completed": false
+    },
+    {
+        "id": 4,
+        "project": 4,
+        "start_date": "2024-06-03",
+        "end_date": "2024-06-30",
+        "completed": false
+    }
+]
+```
