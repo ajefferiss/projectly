@@ -1,501 +1,621 @@
 openapi: 3.0.2
 info:
-  title: ''
-  version: ''
+  title: Projectly - A simple API for managing your "projects"
+  version: '0.0.1'
 paths:
-  /projects/:
+  /projects:
     get:
+      tags:
+        - projects
       operationId: listProjects
-      description: List all projects, or create a new project.
-      parameters: []
+      description: List all projects
       responses:
         '200':
+          description: Successful request
           content:
             application/json:
               schema:
                 type: array
-                items: {}
-          description: ''
-      tags:
-      - projects
+                items:
+                  $ref: '#/components/schemas/Project'
     post:
-      operationId: createProjectList
-      description: List all projects, or create a new project.
-      parameters: []
+      tags:
+        - projects
+      operationId: createProject
+      description: Create a new project.
       requestBody:
         content:
           application/json:
-            schema: {}
+            schema:
+              $ref: '#/components/schemas/Project'
           application/x-www-form-urlencoded:
-            schema: {}
+            schema:
+              $ref: '#/components/schemas/Project'
           multipart/form-data:
-            schema: {}
+            schema:
+              $ref: '#/components/schemas/Project'
       responses:
         '201':
           content:
             application/json:
-              schema: {}
-          description: ''
-      tags:
-      - projects
-  /projects{format}:
+              schema:
+                $ref: '#/components/schemas/Project'
+          description: Successful operation
+        '400':
+          description: Invalid Project details supplied
+  /projects/{projectId}:
     get:
-      operationId: retrieveProjectList
-      description: List all projects, or create a new project.
+      tags:
+        - projects
+      operationId: getByProjectId
+      description: Return a single project
       parameters:
-      - name: format
-        in: path
-        required: true
-        description: ''
-        schema:
-          type: string
+        - name: projectId
+          in: path
+          description: ID of the project to return
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
-              schema: {}
-          description: ''
-      tags:
-      - projects{format}
-    post:
-      operationId: createProjectList
-      description: List all projects, or create a new project.
-      parameters:
-      - name: format
-        in: path
-        required: true
-        description: ''
-        schema:
-          type: string
-      requestBody:
-        content:
-          application/json:
-            schema: {}
-          application/x-www-form-urlencoded:
-            schema: {}
-          multipart/form-data:
-            schema: {}
-      responses:
-        '201':
-          content:
-            application/json:
-              schema: {}
-          description: ''
-      tags:
-      - projects{format}
-  /projects/{id}/:
-    get:
-      operationId: retrieveProjectDetail
-      description: Retrieve, update or delete a project.
-      parameters:
-      - name: id
-        in: path
-        required: true
-        description: ''
-        schema:
-          type: string
-      responses:
-        '200':
-          content:
-            application/json:
-              schema: {}
-          description: ''
-      tags:
-      - projects
+              schema:
+                $ref: '#/components/schemas/Project'
+        '404':
+          description: Project not found
     put:
-      operationId: updateProjectDetail
-      description: Retrieve, update or delete a project.
+      tags:
+        - projects
+      operationId: updateProject
+      description: Update an existing project
       parameters:
-      - name: id
-        in: path
-        required: true
-        description: ''
-        schema:
-          type: string
+        - name: projectId
+          in: path
+          description: ID of the project to update
+          required: true
+          schema:
+            type: integer
+            format: int64
       requestBody:
+        description: Update an existent project
         content:
           application/json:
-            schema: {}
-          application/x-www-form-urlencoded:
-            schema: {}
-          multipart/form-data:
-            schema: {}
+            schema:
+              $ref: '#/components/schemas/Project'
       responses:
         '200':
+          description: Successful update
           content:
             application/json:
-              schema: {}
-          description: ''
-      tags:
-      - projects
+              schema:
+                $ref: '#/components/schemas/Project'
+        '400':
+          description: Invalid Project details supplied
+        '404':
+          description: Project not found
     delete:
-      operationId: destroyProjectDetail
-      description: Retrieve, update or delete a project.
+      tags:
+        - projects
+      operationId: deleteProject
+      description: Delete a single project
       parameters:
-      - name: id
-        in: path
-        required: true
-        description: ''
-        schema:
-          type: string
+        - name: projectId
+          in: path
+          description: ID of the project to return
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
         '204':
-          description: ''
-      tags:
-      - projects
-  /projects/{id}{format}:
+          description: No project content
+        '404':
+          description: Project not found
+
+  /projects/{projectId}/notes:
     get:
-      operationId: retrieveProjectDetail
-      description: Retrieve, update or delete a project.
+      tags:
+        - notes
+      operationId: listProjectNotes
+      description: List all notes for a projects
       parameters:
-      - name: id
-        in: path
-        required: true
-        description: ''
-        schema:
-          type: string
-      - name: format
-        in: path
-        required: true
-        description: ''
-        schema:
-          type: string
+        - name: projectId
+          in: path
+          description: ID of the project to get notes for
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
         '200':
-          content:
-            application/json:
-              schema: {}
-          description: ''
-      tags:
-      - projects
-    put:
-      operationId: updateProjectDetail
-      description: Retrieve, update or delete a project.
-      parameters:
-      - name: id
-        in: path
-        required: true
-        description: ''
-        schema:
-          type: string
-      - name: format
-        in: path
-        required: true
-        description: ''
-        schema:
-          type: string
-      requestBody:
-        content:
-          application/json:
-            schema: {}
-          application/x-www-form-urlencoded:
-            schema: {}
-          multipart/form-data:
-            schema: {}
-      responses:
-        '200':
-          content:
-            application/json:
-              schema: {}
-          description: ''
-      tags:
-      - projects
-    delete:
-      operationId: destroyProjectDetail
-      description: Retrieve, update or delete a project.
-      parameters:
-      - name: id
-        in: path
-        required: true
-        description: ''
-        schema:
-          type: string
-      - name: format
-        in: path
-        required: true
-        description: ''
-        schema:
-          type: string
-      responses:
-        '204':
-          description: ''
-      tags:
-      - projects
-  /projects/{project_id}/notes/:
-    get:
-      operationId: listNotes
-      description: List all Notes, or create a new Note, for a given Project.
-      parameters:
-      - name: project_id
-        in: path
-        required: true
-        description: ''
-        schema:
-          type: string
-      responses:
-        '200':
+          description: Successful request
           content:
             application/json:
               schema:
                 type: array
-                items: {}
-          description: ''
-      tags:
-      - projects
+                items:
+                  $ref: '#/components/schemas/Note'
     post:
-      operationId: createNoteList
-      description: List all Notes, or create a new Note, for a given Project.
+      tags:
+        - notes
+      operationId: createProjectNote
+      description: Create a note for a project.
       parameters:
-      - name: project_id
-        in: path
-        required: true
-        description: ''
-        schema:
-          type: string
+        - name: projectId
+          in: path
+          description: ID of the project to get notes for
+          required: true
+          schema:
+            type: integer
+            format: int64
       requestBody:
         content:
           application/json:
-            schema: {}
+            schema:
+              $ref: '#/components/schemas/Note'
           application/x-www-form-urlencoded:
-            schema: {}
+            schema:
+              $ref: '#/components/schemas/Note'
           multipart/form-data:
-            schema: {}
+            schema:
+              $ref: '#/components/schemas/Note'
       responses:
         '201':
           content:
             application/json:
-              schema: {}
-          description: ''
-      tags:
-      - projects
-  /projects/{project_id}/notes{format}:
+              schema:
+                $ref: '#/components/schemas/Note'
+          description: Successful operation
+        '400':
+          description: Invalid Note details supplied
+  /projects/{projectId}/notes/{noteId}:
     get:
-      operationId: retrieveNoteList
-      description: List all Notes, or create a new Note, for a given Project.
+      tags:
+        - notes
+      operationId: getNoteByProjectId
+      description: Return a single note
       parameters:
-      - name: project_id
-        in: path
-        required: true
-        description: ''
-        schema:
-          type: string
-      - name: format
-        in: path
-        required: true
-        description: ''
-        schema:
-          type: string
+        - name: projectId
+          in: path
+          description: ID of the project associated with a note
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: noteId
+          in: path
+          description: ID of the note to return
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
-              schema: {}
-          description: ''
+              schema:
+                $ref: '#/components/schemas/Note'
+        '404':
+          description: Project not found
+    put:
       tags:
-      - projects
-    post:
-      operationId: createNoteList
-      description: List all Notes, or create a new Note, for a given Project.
+        - notes
+      operationId: updateNote
+      description: Update an existing note
       parameters:
-      - name: project_id
-        in: path
-        required: true
-        description: ''
-        schema:
-          type: string
-      - name: format
-        in: path
-        required: true
-        description: ''
-        schema:
-          type: string
+        - name: projectId
+          in: path
+          description: ID of the project to update
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: noteId
+          in: path
+          description: ID of the note to return
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: Update an existent note
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Note'
+      responses:
+        '200':
+          description: Successful update
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Note'
+        '400':
+          description: Invalid Project details supplied
+        '404':
+          description: Project not found
+    delete:
+      tags:
+        - notes
+      operationId: deleteNote
+      description: Delete a single script
+      parameters:
+        - name: projectId
+          in: path
+          description: ID of the project to return
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: noteId
+          in: path
+          description: ID of the note to return
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '204':
+          description: No project content
+        '404':
+          description: Project not found
+
+  /projects/{projectId}/scripts:
+    get:
+      tags:
+        - scripts
+      operationId: listProjectScripts
+      description: List all scripts for a projects
+      parameters:
+        - name: projectId
+          in: path
+          description: ID of the project to get scripts for
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Successful request
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Script'
+    post:
+      tags:
+        - scripts
+      operationId: createProjectScript
+      description: Create a script for a project.
+      parameters:
+        - name: projectId
+          in: path
+          description: ID of the project to get notes for
+          required: true
+          schema:
+            type: integer
+            format: int64
       requestBody:
         content:
           application/json:
-            schema: {}
+            schema:
+              $ref: '#/components/schemas/Script'
           application/x-www-form-urlencoded:
-            schema: {}
+            schema:
+              $ref: '#/components/schemas/Script'
           multipart/form-data:
-            schema: {}
+            schema:
+              $ref: '#/components/schemas/Script'
       responses:
         '201':
           content:
             application/json:
-              schema: {}
-          description: ''
-      tags:
-      - projects
-  /projects/{project_id}/notes/{note_id}/:
+              schema:
+                $ref: '#/components/schemas/Script'
+          description: Successful operation
+        '400':
+          description: Invalid Script details supplied
+  /projects/{projectId}/scripts/{scriptId}:
     get:
-      operationId: retrieveNoteDetail
-      description: Retrieve, update or delete a Note.
+      tags:
+        - scripts
+      operationId: getScriptByProjectId
+      description: Return a single script
       parameters:
-      - name: project_id
-        in: path
-        required: true
-        description: ''
-        schema:
-          type: string
-      - name: note_id
-        in: path
-        required: true
-        description: ''
-        schema:
-          type: string
+        - name: projectId
+          in: path
+          description: ID of the project associated with a script
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: scriptId
+          in: path
+          description: ID of the script to return
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
-              schema: {}
-          description: ''
-      tags:
-      - projects
+              schema:
+                $ref: '#/components/schemas/Script'
+        '404':
+          description: Project not found
     put:
-      operationId: updateNoteDetail
-      description: Retrieve, update or delete a Note.
+      tags:
+        - scripts
+      operationId: updateScript
+      description: Update an existing script
       parameters:
-      - name: project_id
-        in: path
-        required: true
-        description: ''
-        schema:
-          type: string
-      - name: note_id
-        in: path
-        required: true
-        description: ''
-        schema:
-          type: string
+        - name: projectId
+          in: path
+          description: ID of the project to update
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: scriptId
+          in: path
+          description: ID of the script to return
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: Update an existent script
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Script'
+      responses:
+        '200':
+          description: Successful update
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Script'
+        '400':
+          description: Invalid Project details supplied
+        '404':
+          description: Project not found
+    delete:
+      tags:
+        - scripts
+      operationId: deleteScript
+      description: Delete a single script
+      parameters:
+        - name: projectId
+          in: path
+          description: ID of the project to return
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: scriptId
+          in: path
+          description: ID of the script to return
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '204':
+          description: No project content
+        '404':
+          description: Project not found
+
+  /projects/{projectId}/calendar:
+    get:
+      tags:
+        - calendar
+      operationId: listProjectCalendar
+      description: List all calendar for a projects
+      parameters:
+        - name: projectId
+          in: path
+          description: ID of the project to get calendar for
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Successful request
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Calendar'
+    post:
+      tags:
+        - calendar
+      operationId: createProjectCalendar
+      description: Create a calendar entry for a project.
+      parameters:
+        - name: projectId
+          in: path
+          description: ID of the project to get notes for
+          required: true
+          schema:
+            type: integer
+            format: int64
       requestBody:
         content:
           application/json:
-            schema: {}
+            schema:
+              $ref: '#/components/schemas/Calendar'
           application/x-www-form-urlencoded:
-            schema: {}
+            schema:
+              $ref: '#/components/schemas/Calendar'
           multipart/form-data:
-            schema: {}
+            schema:
+              $ref: '#/components/schemas/Calendar'
       responses:
-        '200':
+        '201':
           content:
             application/json:
-              schema: {}
-          description: ''
-      tags:
-      - projects
-    delete:
-      operationId: destroyNoteDetail
-      description: Retrieve, update or delete a Note.
-      parameters:
-      - name: project_id
-        in: path
-        required: true
-        description: ''
-        schema:
-          type: string
-      - name: note_id
-        in: path
-        required: true
-        description: ''
-        schema:
-          type: string
-      responses:
-        '204':
-          description: ''
-      tags:
-      - projects
-  /projects/{project_id}/notes/{note_id}{format}:
+              schema:
+                $ref: '#/components/schemas/Calendar'
+          description: Successful operation
+        '400':
+          description: Invalid Calendar details supplied
+  /projects/{projectId}/calendar/{scriptId}:
     get:
-      operationId: retrieveNoteDetail
-      description: Retrieve, update or delete a Note.
+      tags:
+        - calendar
+      operationId: getCalendarByProjectId
+      description: Return a single calendar entry
       parameters:
-      - name: project_id
-        in: path
-        required: true
-        description: ''
-        schema:
-          type: string
-      - name: note_id
-        in: path
-        required: true
-        description: ''
-        schema:
-          type: string
-      - name: format
-        in: path
-        required: true
-        description: ''
-        schema:
-          type: string
+        - name: projectId
+          in: path
+          description: ID of the project associated with a calendar entry
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: scriptId
+          in: path
+          description: ID of the calendar entry to return
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
         '200':
+          description: Successful response
           content:
             application/json:
-              schema: {}
-          description: ''
-      tags:
-      - projects
+              schema:
+                $ref: '#/components/schemas/Calendar'
+        '404':
+          description: Project not found
     put:
-      operationId: updateNoteDetail
-      description: Retrieve, update or delete a Note.
+      tags:
+        - calendar
+      operationId: updateCalendar
+      description: Update an existing calendar entry
       parameters:
-      - name: project_id
-        in: path
-        required: true
-        description: ''
-        schema:
-          type: string
-      - name: note_id
-        in: path
-        required: true
-        description: ''
-        schema:
-          type: string
-      - name: format
-        in: path
-        required: true
-        description: ''
-        schema:
-          type: string
+        - name: projectId
+          in: path
+          description: ID of the project to update
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: scriptId
+          in: path
+          description: ID of the calendar entry to return
+          required: true
+          schema:
+            type: integer
+            format: int64
       requestBody:
+        description: Update an existent calendar entry
         content:
           application/json:
-            schema: {}
-          application/x-www-form-urlencoded:
-            schema: {}
-          multipart/form-data:
-            schema: {}
+            schema:
+              $ref: '#/components/schemas/Calendar'
       responses:
         '200':
+          description: Successful update
           content:
             application/json:
-              schema: {}
-          description: ''
-      tags:
-      - projects
+              schema:
+                $ref: '#/components/schemas/Calendar'
+        '400':
+          description: Invalid Project details supplied
+        '404':
+          description: Project not found
     delete:
-      operationId: destroyNoteDetail
-      description: Retrieve, update or delete a Note.
+      tags:
+        - calendar
+      operationId: deleteCalendar
+      description: Delete a single calendar entry
       parameters:
-      - name: project_id
-        in: path
-        required: true
-        description: ''
-        schema:
-          type: string
-      - name: note_id
-        in: path
-        required: true
-        description: ''
-        schema:
-          type: string
-      - name: format
-        in: path
-        required: true
-        description: ''
-        schema:
-          type: string
+        - name: projectId
+          in: path
+          description: ID of the project to return
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: scriptId
+          in: path
+          description: ID of the calendar entry to return
+          required: true
+          schema:
+            type: integer
+            format: int64
       responses:
         '204':
-          description: ''
-      tags:
-      - projects
+          description: No project content
+        '404':
+          description: Project not found
+
+components:
+  schemas:
+    Project:
+      type: object
+      properties:
+        name_text:
+          type: string
+          description: Name of the project
+          example: Create YouTube playlist for runs
+        pub_date:
+          type: string
+          description: Expected publication date for project in YYYY-MM-DD format
+          example: 2024-06-15
+    Note:
+      type: object
+      properties:
+        project:
+          type: integer
+          format: int64
+          description: ID of the project associated with the note
+          example: 1
+        note_text:
+          type: string
+          description: Text of the note
+          example: A note for a project
+    Script:
+      type: object
+      properties:
+        project:
+          type: integer
+          format: int64
+          description: ID of the project associated with the note
+          example: 1
+        script_text:
+          type: string
+          description: Text of the script
+          example: This project is about YouTube playlists
+    Calendar:
+      type: object
+      properties:
+        project:
+          type: integer
+          format: int64
+          description: ID of the project associated with the note
+          example: 1
+        start_date:
+          type: string
+          description: Start date of the calendar entry
+          example: 2024-06-15
+        end_date:
+          type: string
+          description: End date of the calendar entry
+          example: 2024-06-30
+        completed:
+          type: boolean
+          description: Indication of whether the calendar entry is completed
+          example: true
