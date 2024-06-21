@@ -369,7 +369,7 @@ Which returns a JSON blob such as:
 ```
 
 #### Search for upcoming calendar entries
-TODO```
+```
 curl -X POST -H "Content-Type: application/json" -d "{\"days\": 10}" http://localhost:8000/calendar/upcoming
 ```
 
